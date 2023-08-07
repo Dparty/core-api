@@ -446,6 +446,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Attribute'
+        images:
+          type: array
+          items:
+            type: string
     Attribute:
       type: object
       required:
