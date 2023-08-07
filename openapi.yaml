@@ -293,6 +293,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+    delete:
+      tags:
+        - Restaurant
+      operationId: DeleteItem
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: 'Deleted'
   /items/{id}/image:
     post:
       tags:
