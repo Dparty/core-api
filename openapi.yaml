@@ -293,6 +293,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Item'
+  /items/{id}/image:
+    post:
+      tags:
+        - Restaurant
+      operationId: UploadItemImage
+      description: 'Create update url'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '201':
+          description: 'Updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Uploading'
 components:
   schemas:
     Restaurant:
@@ -372,6 +391,13 @@ components:
           type: array
           items:
             type: string
+    Uploading:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
     ItemList:
       type: object
       required:
