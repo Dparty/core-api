@@ -1,0 +1,595 @@
+openapi: 3.0.3
+info:
+  title: Dparty APIs
+  description: |-
+    Dparty
+  contact:
+    email: dan.chen@boardware.com
+  version: 0.0.2
+servers:
+  - url: http://localhost/api/v1
+tags:
+  - name: Account
+  - name: Restaurant
+paths:
+  /account:
+    get:
+      tags:
+        - Account
+      description: Get account detail
+      operationId: GetAccount
+      responses:
+        '200':
+          description: Success get account detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+  /account/session:
+    post:
+      tags:
+        - Account
+      description: Create Login session
+      operationId: CreateSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: 'Account created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /accounts:
+    post:
+      tags:
+        - Account
+      description: Create user account
+      operationId: CreateAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccountRequest'
+      responses:
+        '201':
+          description: 'Account created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+    get:
+      tags:
+        - Account
+      description: Create user account
+      operationId: ListAccount
+      parameters:
+        - $ref: '#/components/parameters/Ordering'
+        - $ref: '#/components/parameters/IndexParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: 'Account created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountList'
+  /accounts/session/verification:
+    get:
+      tags:
+        - Account
+      description: 'Verify jwt'
+      operationId: VerifySession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SessionVerificationRequest'
+      responses:
+        '200':
+          description: 'Verification'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /restaurants:
+    post:
+      operationId: CreateRestaurant
+      tags:
+        - Restaurant
+      description: 'Create restaurant'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutRestaurantRequest'
+      responses:
+        '201':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    get:
+      operationId: ListRestaurants
+      tags:
+        - Restaurant
+      description: 'List restaurants'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestaurantList'
+  /restaurants/{id}:
+    put:
+      tags:
+        - Restaurant
+      operationId: UpdateRestaurant
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      description: 'Update restaurant'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutRestaurantRequest'
+      responses:
+        '200':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    get:
+      tags:
+        - Restaurant
+      operationId: GetRestaurant
+      description: 'Create restaurant'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+    delete:
+      tags:
+        - Restaurant
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      operationId: DeleteRestaurant
+      responses:
+        '204':
+          description: 'Deleted'
+  /restaurants/{id}/items:
+    post:
+      tags:
+        - Restaurant
+      description: 'Create restaurant'
+      operationId: CreateItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutItemRequest'
+      responses:
+        '201':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+    get:
+      tags:
+        - Restaurant
+      operationId: ListRestaurantItems
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: 'Items of restaurant'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemList'
+  /restaurants/{id}/table:
+    post:
+      tags:
+        - Restaurant
+      operationId: CreateTable
+      description: 'Create restaurant'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutTableRequest'
+      responses:
+        '201':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+  /tables/{id}:
+    put:
+      tags:
+        - Restaurant
+      operationId: UpdateTable
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      description: 'Update table'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutTableRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+  /items/{id}:
+    put:
+      tags:
+        - Restaurant
+      operationId: UpdateItem
+      description: 'Create restaurant'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutItemRequest'
+      responses:
+        '200':
+          description: 'Updated'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+components:
+  schemas:
+    Restaurant:
+      type: object
+      description: 'Restaurant'
+      required:
+        - id
+        - name
+        - description
+        - items
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        itmes:
+          type: array
+          items: 
+            $ref: '#/components/schemas/ItemList'
+    RestaurantList:
+      type: object
+      description: ''
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Restaurant'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    PutRestaurantRequest:
+      type: object
+      description: 'Restaurant'
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Table:
+      type: object
+      description: 'Table of restaurant'
+      required:
+        - id
+        - label
+        - items
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+    PutTableRequest:
+      type: object
+      required:
+        - label
+      properties:
+        label:
+          type: string
+    Order:
+      type: object
+      required:
+        - item
+        - properties
+      properties:
+        item:
+          $ref: '#/components/schemas/Item'
+        properties:
+          type: array
+          items:
+            type: string
+    ItemList:
+      type: object
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    PutItemRequest:
+      type: object
+      required:
+        - name
+        - pricing
+        - attributes
+      properties:
+        name:
+          type: string
+        pricing:
+          type: integer
+          format: int64
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+    Item:
+      type: object
+      description: 'Item'
+      required:
+        - id
+        - name
+        - pricing
+        - attributes
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pricing:
+          type: integer
+          format: int64
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attribute'
+    Attribute:
+      type: object
+      required:
+        - label
+        - options
+      properties:
+        label:
+          type: string
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+    Option:
+      type: object
+      required:
+        - label
+        - extra
+      properties:
+        label:
+          type: string
+        extra:
+          type: integer
+          format: int64
+    SessionVerificationRequest:
+      description: 'Session verification request'
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    CreateSessionRequest:
+      description: 'Login request'
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          minLength: 11
+          maxLength: 11
+        password:
+          type: string
+          minLength: 10
+          maxLength: 128
+    CreateAccountRequest:
+      description: 'Create account request schema'
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        verificationCode:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    Role:
+      type: string
+      enum: [ROOT, ADMIN, USER]
+    Account:
+      type: object
+      required:
+        - id
+        - email
+        - role
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    AccountList:
+      description: 'Account list'
+      type: object
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Account'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Session:
+      type: object
+      required:
+        - account
+        - token
+        - tokenType
+        - tokenFormat
+        - expiredAt
+        - createdAt
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+        token:
+          type: string
+        tokenType:
+          type: string
+          default: Bearer
+        tokenFormat:
+          type: string
+          default: jwt
+        expiredAt:
+          type: integer
+          format: int64
+        createdAt:
+          type: integer
+          format: int64
+    SessionStatus:
+      type: string
+      enum: ['ACTIVED', 'EXPIRED', 'DISACTIVED']
+    SessionVerification:
+      required:
+        - status
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/SessionStatus'
+    Ordering:
+      description: 'Ordering'
+      type: string
+      enum: [ASCENDING, DESCENDING]
+    Pagination:
+      description: 'Pagination'
+      type: object
+      required:
+        - index
+        - limit
+        - total
+      properties:
+        index:
+          type: integer
+          format: int64
+          description: 'Current page'
+        limit:
+          type: integer
+          format: int64
+          description: 'Amount per page'
+        total:
+          type: integer
+          format: int64
+          description: 'Total page'
+  parameters:
+    Ordering:
+      name: ordering
+      description: 'ASCENDING or DESCENDING'
+      in: query
+      schema:
+        $ref: '#/components/schemas/Ordering'
+    IndexParam:
+      name: index
+      in: query
+      description: 'Current page index'
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    LimitParam:
+      name: limit
+      in: query
+      description: 'Total pages'
+      schema:
+        type: integer
+        minimum: 1
+        default: 10

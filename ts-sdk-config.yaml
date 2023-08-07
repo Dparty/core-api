@@ -1,0 +1,6 @@
+generatorName: typescript-fetch
+outputDir: ./ts-sdk
+inputSpec: modules/openapi-generator/src/test/resources/2_0/petstore.yaml
+templateDir: modules/openapi-generator/src/main/resources/JavaSpring
+additionalProperties:
+  npmName: warmsilver-core-ts-sdk
