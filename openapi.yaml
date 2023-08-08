@@ -43,6 +43,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Session'
+  /account/password:
+    put:
+      tags:
+        - Account
+      operationId: UpdatePassword
+      description: Update password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        '204':
+          description: 'Success'
   /accounts:
     post:
       tags:
@@ -221,7 +235,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
-  /restaurants/{id}/table:
+  /restaurants/{id}/tables:
     post:
       tags:
         - Restaurant
@@ -240,6 +254,26 @@ paths:
               $ref: '#/components/schemas/PutTableRequest'
       responses:
         '201':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
+        '409':
+          description: 'Duplicated'
+    get:
+      tags:
+        - Restaurant
+      operationId: ListRestaurantTable
+      description: 'List restaurants table'
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
           description: 'Success created'
           content:
             application/json:
@@ -268,7 +302,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Table'
+                $ref: '#/components/schemas/TableList'
   /items/{id}:
     put:
       tags:
@@ -381,10 +415,13 @@ components:
           type: string
         label:
           type: string
-        items:
+    TableList:
+      type: object
+      properties:
+        data:
           type: array
           items:
-            $ref: '#/components/schemas/Order'
+            $ref: '#/components/schemas/Table'
     PutTableRequest:
       type: object
       required:
@@ -392,7 +429,7 @@ components:
       properties:
         label:
           type: string
-    Order:
+    OrderItem:
       type: object
       required:
         - item
@@ -400,10 +437,22 @@ components:
       properties:
         item:
           $ref: '#/components/schemas/Item'
-        properties:
+        options:
           type: array
           items:
-            type: string
+            $ref: '#/components/schemas/Option'
+    Bill:
+      type: object
+      required:
+        - checkoutUrl
+        - items
+      properties:
+        checkoutUrl:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
     Uploading:
       type: object
       required:
@@ -527,6 +576,16 @@ components:
     Role:
       type: string
       enum: [ROOT, ADMIN, USER]
+    UpdatePasswordRequest:
+      type: object
+      required:
+        - password
+        - newPassword
+      properties:
+        password:
+          type: string
+        newPassword:
+          type: string
     Account:
       type: object
       required:
