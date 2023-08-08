@@ -14,6 +14,6 @@ jobs:
       - name: Generator typescript sdk
         run: npx @openapitools/openapi-generator-cli generate -i openapi.yaml -g typescript-fetch -o ./ts-sdk --additional-properties=npmName=warmsilver-core-ts-sdk
       - run: |
-          cp ts-sdk/* .
+          cp -r ts-sdk/* .
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
