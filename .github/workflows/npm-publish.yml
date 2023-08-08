@@ -16,6 +16,5 @@ jobs:
       - run: |
           cp -r ts-sdk/* .
           cp -r ts-sdk/.* .
-          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
