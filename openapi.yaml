@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.2
+  version: 0.0.4
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -56,7 +56,7 @@ paths:
               $ref: '#/components/schemas/UpdatePasswordRequest'
       responses:
         '204':
-          description: 'Success'
+          description: 'Updated'
   /accounts:
     post:
       tags:
