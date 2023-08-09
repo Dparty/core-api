@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.11
+  version: 0.0.13
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -303,6 +303,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Table'
+    delete:
+      tags:
+        - Restaurant
+      operationId: DeleteTable
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: 'Deleted'
   /items/{id}:
     get:
       tags:
@@ -376,6 +389,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Uploading'
+
 components:
   schemas:
     Restaurant:

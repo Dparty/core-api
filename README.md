@@ -1,4 +1,4 @@
-# BoardWare cloud api
+# Core
 
 ## Configuration
 
