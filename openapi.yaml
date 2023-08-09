@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.13
+  version: 0.0.14
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -440,7 +440,6 @@ components:
       required:
         - id
         - label
-        - items
       properties:
         id:
           type: string
@@ -509,6 +508,7 @@ components:
         - name
         - pricing
         - attributes
+        - images
       properties:
         name:
           type: string
@@ -519,6 +519,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Attribute'
+        images:
+          type: array
+          items:
+            type: string
     Item:
       type: object
       description: 'Item'
