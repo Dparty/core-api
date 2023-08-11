@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.21
+  version: 0.0.22
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -423,6 +423,7 @@ components:
         - name
         - description
         - items
+        - tags
       properties:
         id:
           type: string
@@ -434,6 +435,10 @@ components:
           type: array
           items: 
             $ref: '#/components/schemas/ItemList'
+        tags:
+          type: array
+          items:
+            type: string
     RestaurantList:
       type: object
       description: ''
