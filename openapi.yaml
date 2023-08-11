@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.20
+  version: 0.0.21
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -452,6 +452,8 @@ components:
       description: 'Restaurant'
       required:
         - name
+        - description
+        - tags
       properties:
         name:
           type: string
@@ -555,6 +557,7 @@ components:
         - pricing
         - attributes
         - images
+        - tags
       properties:
         name:
           type: string
@@ -569,6 +572,10 @@ components:
           type: array
           items:
             type: string
+        tags:
+          type: array
+          items:
+            type: string
     Item:
       type: object
       description: 'Item'
@@ -577,6 +584,8 @@ components:
         - name
         - pricing
         - attributes
+        - images
+        - tags
       properties:
         id:
           type: string
