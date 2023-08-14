@@ -235,6 +235,47 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemList'
+  /restaurants/{id}/printers:
+    post:
+      tags:
+        - Restaurant
+      operationId: CreatePrinter
+      responses:
+        '201':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutPrinterRequest'
+    get:
+      tags:
+        - Restaurant
+      operationId: ListPrinters
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrinterList'
+  /printers/{id}:
+    put:
+      tags:
+        - Restaurant
+      operationId: UpdatePrinter
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: 'Success created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PutPrinterRequest'
   /restaurants/{id}/tables:
     post:
       tags:
@@ -412,7 +453,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Uploading'
-
 components:
   schemas:
     Restaurant:
@@ -468,6 +508,33 @@ components:
           type: array
           items:
             type: string
+    PutPrinterRequest:
+      type: object
+      properties:
+        sn:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    Printer:
+      type: object
+      properties:
+        id:
+          type: string
+        sn:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    PrinterList:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/Printer'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     Table:
       type: object
       description: 'Table of restaurant'
@@ -581,6 +648,10 @@ components:
           type: array
           items:
             type: string
+        printers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Printer'
     Item:
       type: object
       description: 'Item'
@@ -611,6 +682,10 @@ components:
           type: array
           items:
             type: string
+        printers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Printer'
     Attribute:
       type: object
       required:
