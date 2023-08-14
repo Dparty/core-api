@@ -298,6 +298,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PutPrinterRequest'
+    delete:
+      tags:
+        - Restaurant
+      operationId: DeletePrinter
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: 'Deleted'
   /restaurants/{id}/tables:
     post:
       tags:
