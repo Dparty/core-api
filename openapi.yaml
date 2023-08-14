@@ -240,6 +240,12 @@ paths:
       tags:
         - Restaurant
       operationId: CreatePrinter
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
       requestBody:
         content:
           application/json:
@@ -256,6 +262,12 @@ paths:
       tags:
         - Restaurant
       operationId: ListPrinters
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: 'Success'
