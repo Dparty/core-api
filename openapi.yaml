@@ -574,6 +574,9 @@ components:
           type: string
     PrinterList:
       type: object
+      required:
+        - data
+        - pagination
       properties:
         data:
           $ref: '#/components/schemas/Printer'
