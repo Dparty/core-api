@@ -240,13 +240,18 @@ paths:
       tags:
         - Restaurant
       operationId: CreatePrinter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPrinterRequest'
       responses:
         '201':
           description: 'Success created'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PutPrinterRequest'
+                $ref: '#/components/schemas/Printer'
     get:
       tags:
         - Restaurant
@@ -269,6 +274,11 @@ paths:
           schema:
             type: string
           required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PutPrinterRequest'
       responses:
         '200':
           description: 'Success created'
