@@ -613,7 +613,7 @@ components:
       type: object
       required:
         - item
-        - properties
+        - options
       properties:
         item:
           $ref: '#/components/schemas/Item'
