@@ -579,7 +579,9 @@ components:
         - pagination
       properties:
         data:
-          $ref: '#/components/schemas/Printer'
+          type: array
+          items:
+            $ref: '#/components/schemas/Printer'
         pagination:
           $ref: '#/components/schemas/Pagination'
     Table:
