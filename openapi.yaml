@@ -532,6 +532,10 @@ components:
             type: string
     PutPrinterRequest:
       type: object
+      required:
+        - sn
+        - name
+        - description
       properties:
         sn:
           type: string
@@ -541,6 +545,11 @@ components:
           type: string
     Printer:
       type: object
+      required:
+        - id
+        - sn
+        - name
+        - description
       properties:
         id:
           type: string
