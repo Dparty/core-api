@@ -630,6 +630,7 @@ components:
         - attributes
         - images
         - tags
+        - printers
       properties:
         name:
           type: string
@@ -651,7 +652,7 @@ components:
         printers:
           type: array
           items:
-            $ref: '#/components/schemas/Printer'
+            type: string
     Item:
       type: object
       description: 'Item'
@@ -662,6 +663,7 @@ components:
         - attributes
         - images
         - tags
+        - printers
       properties:
         id:
           type: string
@@ -685,7 +687,7 @@ components:
         printers:
           type: array
           items:
-            $ref: '#/components/schemas/Printer'
+            type: string
     Attribute:
       type: object
       required:
