@@ -620,7 +620,7 @@ components:
         options:
           type: array
           items:
-            $ref: '#/components/schemas/Option'
+            $ref: '#/components/schemas/Pair'
     CreateBillRequest:
       type: object
       required:
@@ -630,6 +630,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Order'
+    StringMap:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
+    Pair:
+      type: object
+      required:
+        - Key
+        - Value
+      properties:
+        left:
+          type: string
+        right:
+          type: string
     Bill:
       type: object
       required:
