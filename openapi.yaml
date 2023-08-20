@@ -543,12 +543,16 @@ components:
           type: array
           items:
             type: string
+    PrinterType:
+      type: string
+      enum: [BILL,KITCHEN]
     PutPrinterRequest:
       type: object
       required:
         - sn
         - name
         - description
+        - type
       properties:
         sn:
           type: string
@@ -556,6 +560,8 @@ components:
           type: string
         description:
           type: string
+        type:
+          $ref: '#/components/schemas/PrinterType'
     Printer:
       type: object
       required:
@@ -563,6 +569,7 @@ components:
         - sn
         - name
         - description
+        - type
       properties:
         id:
           type: string
@@ -572,6 +579,8 @@ components:
           type: string
         description:
           type: string
+        type:
+          $ref: '#/components/schemas/PrinterType'
     PrinterList:
       type: object
       required:
