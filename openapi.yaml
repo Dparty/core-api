@@ -646,8 +646,8 @@ components:
     Pair:
       type: object
       required:
-        - Key
-        - Value
+        - left
+        - right
       properties:
         left:
           type: string
