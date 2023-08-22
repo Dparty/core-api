@@ -627,9 +627,10 @@ components:
         item:
           $ref: '#/components/schemas/Item'
         options:
+          description: 'Left is attribute label right is option label'
           type: array
           items:
-            $ref: '#/components/schemas/Option'
+            $ref: '#/components/schemas/Pair'
     CreateBillRequest:
       type: object
       required:
