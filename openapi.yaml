@@ -5,7 +5,7 @@ info:
     Dparty
   contact:
     email: dan.chen@boardware.com
-  version: 0.0.22
+  version: 0.0.24
 servers:
   - url: http://localhost/api/v1
 tags:
@@ -621,11 +621,11 @@ components:
     Order:
       type: object
       required:
-        - item
+        - itemId
         - options
       properties:
-        item:
-          $ref: '#/components/schemas/Item'
+        itemId:
+          type: string
         options:
           description: 'Left is attribute label right is option label'
           type: array
