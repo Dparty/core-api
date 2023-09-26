@@ -6,121 +6,26 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type PutRestaurantRequest struct {
-	Name        string   `json:"name"`
-	Description string   `json:"description"`
-	Tags        []string `json:"tags"`
-}
 type Table struct {
 	Id    string `json:"id"`
 	Label string `json:"label"`
 }
-type Bill struct {
-	CheckoutUrl string  `json:"checkoutUrl"`
-	Items       []Order `json:"items"`
-}
-type ItemList struct {
-	Data       []Item     `json:"data"`
-	Pagination Pagination `json:"pagination"`
-}
-type CreateSessionRequest struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-type Account struct {
-	Id    string `json:"id"`
-	Email string `json:"email"`
-	Role  Role   `json:"role"`
+type TableList struct {
+	Data *[]Table `json:"data,omitempty"`
 }
 type Session struct {
-	ExpiredAt   int64   `json:"expiredAt"`
-	CreatedAt   int64   `json:"createdAt"`
 	Account     Account `json:"account"`
 	Token       string  `json:"token"`
 	TokenType   string  `json:"tokenType"`
 	TokenFormat string  `json:"tokenFormat"`
-}
-type SessionVerification struct {
-	Status SessionStatus `json:"status"`
-}
-type TableList struct {
-	Data *[]Table `json:"data,omitempty"`
-}
-type Order struct {
-	Options []Pair `json:"options"`
-	ItemId  string `json:"itemId"`
-}
-type PutItemRequest struct {
-	Pricing    int64       `json:"pricing"`
-	Attributes []Attribute `json:"attributes"`
-	Images     []string    `json:"images"`
-	Tags       []string    `json:"tags"`
-	Printers   []string    `json:"printers"`
-	Name       string      `json:"name"`
-}
-type Attribute struct {
-	Label   string   `json:"label"`
-	Options []Option `json:"options"`
-}
-type Pagination struct {
-	Index int64 `json:"index"`
-	Limit int64 `json:"limit"`
-	Total int64 `json:"total"`
-}
-type RestaurantList struct {
-	Data       []Restaurant `json:"data"`
-	Pagination Pagination   `json:"pagination"`
-}
-type Uploading struct {
-	Url string `json:"url"`
-}
-type SessionVerificationRequest struct {
-	Token string `json:"token"`
-}
-type CreateAccountRequest struct {
-	VerificationCode *string `json:"verificationCode,omitempty"`
-	Email            string  `json:"email"`
-	Password         string  `json:"password"`
-	Role             *Role   `json:"role,omitempty"`
-}
-type UpdatePasswordRequest struct {
-	Password    string `json:"password"`
-	NewPassword string `json:"newPassword"`
-}
-type AccountList struct {
-	Data       []Account  `json:"data"`
-	Pagination Pagination `json:"pagination"`
-}
-type Restaurant struct {
-	Id          string      `json:"id"`
-	Name        string      `json:"name"`
-	Description string      `json:"description"`
-	Itmes       *[]ItemList `json:"itmes,omitempty"`
-	Tags        []string    `json:"tags"`
+	ExpiredAt   int64   `json:"expiredAt"`
+	CreatedAt   int64   `json:"createdAt"`
 }
 type PutPrinterRequest struct {
+	Type        PrinterType `json:"type"`
 	Sn          string      `json:"sn"`
 	Name        string      `json:"name"`
 	Description string      `json:"description"`
-	Type        PrinterType `json:"type"`
-}
-type PrinterList struct {
-	Data       []Printer  `json:"data"`
-	Pagination Pagination `json:"pagination"`
-}
-type PutTableRequest struct {
-	Label string `json:"label"`
-}
-type CreateBillRequest struct {
-	Orders []Order `json:"orders"`
-}
-type Pair struct {
-	Left  string `json:"left"`
-	Right string `json:"right"`
-}
-type Option struct {
-	Label string `json:"label"`
-	Extra int64  `json:"extra"`
 }
 type Printer struct {
 	Id          string      `json:"id"`
@@ -129,9 +34,84 @@ type Printer struct {
 	Description string      `json:"description"`
 	Type        PrinterType `json:"type"`
 }
-type BillList struct {
+type Pair struct {
+	Left  string `json:"left"`
+	Right string `json:"right"`
+}
+type Bill struct {
+	Orders *[]Order `json:"orders,omitempty"`
+}
+type PutTableRequest struct {
+	Label string `json:"label"`
+}
+type PutItemRequest struct {
+	Tags       []string    `json:"tags"`
+	Printers   []string    `json:"printers"`
+	Name       string      `json:"name"`
+	Pricing    int64       `json:"pricing"`
+	Attributes []Attribute `json:"attributes"`
+	Images     []string    `json:"images"`
+}
+type CreateSessionRequest struct {
+	Password string `json:"password"`
+	Email    string `json:"email"`
+}
+type UpdatePasswordRequest struct {
+	NewPassword string `json:"newPassword"`
+	Password    string `json:"password"`
+}
+type Restaurant struct {
+	Id          string      `json:"id"`
+	Name        string      `json:"name"`
+	Description string      `json:"description"`
+	Itmes       *[]ItemList `json:"itmes,omitempty"`
+	Tags        []string    `json:"tags"`
+}
+type RestaurantList struct {
+	Data       []Restaurant `json:"data"`
+	Pagination Pagination   `json:"pagination"`
+}
+type ItemList struct {
+	Data       []Item     `json:"data"`
 	Pagination Pagination `json:"pagination"`
-	Data       Bill       `json:"data"`
+}
+type PrinterList struct {
+	Data       []Printer  `json:"data"`
+	Pagination Pagination `json:"pagination"`
+}
+type Specification struct {
+	Options []Pair `json:"options"`
+	ItemId  string `json:"itemId"`
+}
+type Attribute struct {
+	Label   string   `json:"label"`
+	Options []Option `json:"options"`
+}
+type CreateAccountRequest struct {
+	Role             *Role   `json:"role,omitempty"`
+	VerificationCode *string `json:"verificationCode,omitempty"`
+	Email            string  `json:"email"`
+	Password         string  `json:"password"`
+}
+type SessionVerificationRequest struct {
+	Token string `json:"token"`
+}
+type AccountList struct {
+	Data       []Account  `json:"data"`
+	Pagination Pagination `json:"pagination"`
+}
+type SessionVerification struct {
+	Status SessionStatus `json:"status"`
+}
+type CreateBillRequest struct {
+	Orders []Specification `json:"orders"`
+}
+type BillList struct {
+	Data       []Bill     `json:"data"`
+	Pagination Pagination `json:"pagination"`
+}
+type Uploading struct {
+	Url string `json:"url"`
 }
 type Item struct {
 	Id         string      `json:"id"`
@@ -142,21 +122,33 @@ type Item struct {
 	Tags       []string    `json:"tags"`
 	Printers   []string    `json:"printers"`
 }
-type SessionStatus string
-
-const ACTIVED SessionStatus = "ACTIVED"
-const EXPIRED SessionStatus = "EXPIRED"
-const DISACTIVED SessionStatus = "DISACTIVED"
-
+type Option struct {
+	Extra int64  `json:"extra"`
+	Label string `json:"label"`
+}
+type Account struct {
+	Id    string `json:"id"`
+	Email string `json:"email"`
+	Role  Role   `json:"role"`
+}
+type PutRestaurantRequest struct {
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Tags        []string `json:"tags"`
+}
+type Order struct {
+	Item    Item   `json:"item"`
+	Options []Pair `json:"options"`
+}
+type Pagination struct {
+	Index int64 `json:"index"`
+	Limit int64 `json:"limit"`
+	Total int64 `json:"total"`
+}
 type PrinterType string
 
 const BILL PrinterType = "BILL"
 const KITCHEN PrinterType = "KITCHEN"
-
-type Ordering string
-
-const ASCENDING Ordering = "ASCENDING"
-const DESCENDING Ordering = "DESCENDING"
 
 type Role string
 
@@ -164,6 +156,17 @@ const ROOT Role = "ROOT"
 const ADMIN Role = "ADMIN"
 const USER Role = "USER"
 const SUB_ACCOUNT Role = "SUB_ACCOUNT"
+
+type SessionStatus string
+
+const ACTIVED SessionStatus = "ACTIVED"
+const EXPIRED SessionStatus = "EXPIRED"
+const DISACTIVED SessionStatus = "DISACTIVED"
+
+type Ordering string
+
+const ASCENDING Ordering = "ASCENDING"
+const DESCENDING Ordering = "DESCENDING"
 
 type AccountApiInterface interface {
 	UpdatePassword(gin_context *gin.Context, gin_body UpdatePasswordRequest)
@@ -225,33 +228,52 @@ func AccountApiInterfaceMounter(gin_router *gin.Engine, gwg_api_label AccountApi
 }
 
 type RestaurantApiInterface interface {
-	DeleteTable(gin_context *gin.Context, id string)
+	CreateItem(gin_context *gin.Context, id string, gin_body PutItemRequest)
+	ListRestaurantItems(gin_context *gin.Context, id string)
+	ListBills(gin_context *gin.Context, id string, startAt int64, endAt int64)
 	UpdateTable(gin_context *gin.Context, id string, gin_body PutTableRequest)
-	UploadItemImage(gin_context *gin.Context, id string)
+	DeleteTable(gin_context *gin.Context, id string)
+	UpdateItem(gin_context *gin.Context, id string, gin_body PutItemRequest)
+	DeleteItem(gin_context *gin.Context, id string)
+	GetItem(gin_context *gin.Context, id string)
 	UpdateRestaurant(gin_context *gin.Context, id string, gin_body PutRestaurantRequest)
 	GetRestaurant(gin_context *gin.Context, id string)
 	DeleteRestaurant(gin_context *gin.Context, id string)
-	UpdatePrinter(gin_context *gin.Context, id string, gin_body PutPrinterRequest)
-	DeletePrinter(gin_context *gin.Context, id string)
 	CreateRestaurant(gin_context *gin.Context, gin_body PutRestaurantRequest)
 	ListRestaurants(gin_context *gin.Context)
-	CreateBill(gin_context *gin.Context, id string, gin_body CreateBillRequest)
-	GetItem(gin_context *gin.Context, id string)
-	UpdateItem(gin_context *gin.Context, id string, gin_body PutItemRequest)
-	DeleteItem(gin_context *gin.Context, id string)
-	ListBills(gin_context *gin.Context, id string, startAt int64, endAt int64)
-	CreateItem(gin_context *gin.Context, id string, gin_body PutItemRequest)
-	ListRestaurantItems(gin_context *gin.Context, id string)
-	CreatePrinter(gin_context *gin.Context, id string, gin_body PutPrinterRequest)
 	ListPrinters(gin_context *gin.Context, id string)
+	CreatePrinter(gin_context *gin.Context, id string, gin_body PutPrinterRequest)
+	UploadItemImage(gin_context *gin.Context, id string)
+	UpdatePrinter(gin_context *gin.Context, id string, gin_body PutPrinterRequest)
+	DeletePrinter(gin_context *gin.Context, id string)
+	CreateBill(gin_context *gin.Context, id string, gin_body CreateBillRequest)
 	CreateTable(gin_context *gin.Context, id string, gin_body PutTableRequest)
 	ListRestaurantTable(gin_context *gin.Context, id string)
 }
 
-func DeleteTableBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+func CreateItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 	return func(gin_context *gin.Context) {
 		id := gin_context.Param("id")
-		api.DeleteTable(gin_context, id)
+		var putItemRequest PutItemRequest
+		if err := gin_context.ShouldBindJSON(&putItemRequest); err != nil {
+			gin_context.JSON(400, gin.H{})
+			return
+		}
+		api.CreateItem(gin_context, id, putItemRequest)
+	}
+}
+func ListRestaurantItemsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		api.ListRestaurantItems(gin_context, id)
+	}
+}
+func ListBillsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		startAt := gin_context.Query("startAt")
+		endAt := gin_context.Query("endAt")
+		api.ListBills(gin_context, id, stringToInt64(startAt), stringToInt64(endAt))
 	}
 }
 func UpdateTableBuilder(api RestaurantApiInterface) func(c *gin.Context) {
@@ -265,10 +287,33 @@ func UpdateTableBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 		api.UpdateTable(gin_context, id, putTableRequest)
 	}
 }
-func UploadItemImageBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+func DeleteTableBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 	return func(gin_context *gin.Context) {
 		id := gin_context.Param("id")
-		api.UploadItemImage(gin_context, id)
+		api.DeleteTable(gin_context, id)
+	}
+}
+func UpdateItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		var putItemRequest PutItemRequest
+		if err := gin_context.ShouldBindJSON(&putItemRequest); err != nil {
+			gin_context.JSON(400, gin.H{})
+			return
+		}
+		api.UpdateItem(gin_context, id, putItemRequest)
+	}
+}
+func DeleteItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		api.DeleteItem(gin_context, id)
+	}
+}
+func GetItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		api.GetItem(gin_context, id)
 	}
 }
 func UpdateRestaurantBuilder(api RestaurantApiInterface) func(c *gin.Context) {
@@ -294,6 +339,44 @@ func DeleteRestaurantBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 		api.DeleteRestaurant(gin_context, id)
 	}
 }
+func CreateRestaurantBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		var putRestaurantRequest PutRestaurantRequest
+		if err := gin_context.ShouldBindJSON(&putRestaurantRequest); err != nil {
+			gin_context.JSON(400, gin.H{})
+			return
+		}
+		api.CreateRestaurant(gin_context, putRestaurantRequest)
+	}
+}
+func ListRestaurantsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		api.ListRestaurants(gin_context)
+	}
+}
+func ListPrintersBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		api.ListPrinters(gin_context, id)
+	}
+}
+func CreatePrinterBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		var putPrinterRequest PutPrinterRequest
+		if err := gin_context.ShouldBindJSON(&putPrinterRequest); err != nil {
+			gin_context.JSON(400, gin.H{})
+			return
+		}
+		api.CreatePrinter(gin_context, id, putPrinterRequest)
+	}
+}
+func UploadItemImageBuilder(api RestaurantApiInterface) func(c *gin.Context) {
+	return func(gin_context *gin.Context) {
+		id := gin_context.Param("id")
+		api.UploadItemImage(gin_context, id)
+	}
+}
 func UpdatePrinterBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 	return func(gin_context *gin.Context) {
 		id := gin_context.Param("id")
@@ -311,21 +394,6 @@ func DeletePrinterBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 		api.DeletePrinter(gin_context, id)
 	}
 }
-func CreateRestaurantBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		var putRestaurantRequest PutRestaurantRequest
-		if err := gin_context.ShouldBindJSON(&putRestaurantRequest); err != nil {
-			gin_context.JSON(400, gin.H{})
-			return
-		}
-		api.CreateRestaurant(gin_context, putRestaurantRequest)
-	}
-}
-func ListRestaurantsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		api.ListRestaurants(gin_context)
-	}
-}
 func CreateBillBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 	return func(gin_context *gin.Context) {
 		id := gin_context.Param("id")
@@ -335,71 +403,6 @@ func CreateBillBuilder(api RestaurantApiInterface) func(c *gin.Context) {
 			return
 		}
 		api.CreateBill(gin_context, id, createBillRequest)
-	}
-}
-func GetItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		api.GetItem(gin_context, id)
-	}
-}
-func UpdateItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		var putItemRequest PutItemRequest
-		if err := gin_context.ShouldBindJSON(&putItemRequest); err != nil {
-			gin_context.JSON(400, gin.H{})
-			return
-		}
-		api.UpdateItem(gin_context, id, putItemRequest)
-	}
-}
-func DeleteItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		api.DeleteItem(gin_context, id)
-	}
-}
-func ListBillsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		startAt := gin_context.Query("startAt")
-		endAt := gin_context.Query("endAt")
-		api.ListBills(gin_context, id, stringToInt64(startAt), stringToInt64(endAt))
-	}
-}
-func CreateItemBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		var putItemRequest PutItemRequest
-		if err := gin_context.ShouldBindJSON(&putItemRequest); err != nil {
-			gin_context.JSON(400, gin.H{})
-			return
-		}
-		api.CreateItem(gin_context, id, putItemRequest)
-	}
-}
-func ListRestaurantItemsBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		api.ListRestaurantItems(gin_context, id)
-	}
-}
-func CreatePrinterBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		var putPrinterRequest PutPrinterRequest
-		if err := gin_context.ShouldBindJSON(&putPrinterRequest); err != nil {
-			gin_context.JSON(400, gin.H{})
-			return
-		}
-		api.CreatePrinter(gin_context, id, putPrinterRequest)
-	}
-}
-func ListPrintersBuilder(api RestaurantApiInterface) func(c *gin.Context) {
-	return func(gin_context *gin.Context) {
-		id := gin_context.Param("id")
-		api.ListPrinters(gin_context, id)
 	}
 }
 func CreateTableBuilder(api RestaurantApiInterface) func(c *gin.Context) {
@@ -420,25 +423,25 @@ func ListRestaurantTableBuilder(api RestaurantApiInterface) func(c *gin.Context)
 	}
 }
 func RestaurantApiInterfaceMounter(gin_router *gin.Engine, gwg_api_label RestaurantApiInterface) {
-	gin_router.DELETE("/tables/:id", DeleteTableBuilder(gwg_api_label))
+	gin_router.POST("/restaurants/:id/items", CreateItemBuilder(gwg_api_label))
+	gin_router.GET("/restaurants/:id/items", ListRestaurantItemsBuilder(gwg_api_label))
+	gin_router.GET("/restaurants/:id/bills", ListBillsBuilder(gwg_api_label))
 	gin_router.PUT("/tables/:id", UpdateTableBuilder(gwg_api_label))
-	gin_router.POST("/items/:id/image", UploadItemImageBuilder(gwg_api_label))
+	gin_router.DELETE("/tables/:id", DeleteTableBuilder(gwg_api_label))
+	gin_router.PUT("/items/:id", UpdateItemBuilder(gwg_api_label))
+	gin_router.DELETE("/items/:id", DeleteItemBuilder(gwg_api_label))
+	gin_router.GET("/items/:id", GetItemBuilder(gwg_api_label))
 	gin_router.PUT("/restaurants/:id", UpdateRestaurantBuilder(gwg_api_label))
 	gin_router.GET("/restaurants/:id", GetRestaurantBuilder(gwg_api_label))
 	gin_router.DELETE("/restaurants/:id", DeleteRestaurantBuilder(gwg_api_label))
-	gin_router.PUT("/printers/:id", UpdatePrinterBuilder(gwg_api_label))
-	gin_router.DELETE("/printers/:id", DeletePrinterBuilder(gwg_api_label))
 	gin_router.POST("/restaurants", CreateRestaurantBuilder(gwg_api_label))
 	gin_router.GET("/restaurants", ListRestaurantsBuilder(gwg_api_label))
-	gin_router.POST("/tables/:id/orders", CreateBillBuilder(gwg_api_label))
-	gin_router.GET("/items/:id", GetItemBuilder(gwg_api_label))
-	gin_router.PUT("/items/:id", UpdateItemBuilder(gwg_api_label))
-	gin_router.DELETE("/items/:id", DeleteItemBuilder(gwg_api_label))
-	gin_router.GET("/restaurants/:id/bills", ListBillsBuilder(gwg_api_label))
-	gin_router.POST("/restaurants/:id/items", CreateItemBuilder(gwg_api_label))
-	gin_router.GET("/restaurants/:id/items", ListRestaurantItemsBuilder(gwg_api_label))
-	gin_router.POST("/restaurants/:id/printers", CreatePrinterBuilder(gwg_api_label))
 	gin_router.GET("/restaurants/:id/printers", ListPrintersBuilder(gwg_api_label))
+	gin_router.POST("/restaurants/:id/printers", CreatePrinterBuilder(gwg_api_label))
+	gin_router.POST("/items/:id/image", UploadItemImageBuilder(gwg_api_label))
+	gin_router.PUT("/printers/:id", UpdatePrinterBuilder(gwg_api_label))
+	gin_router.DELETE("/printers/:id", DeletePrinterBuilder(gwg_api_label))
+	gin_router.POST("/tables/:id/orders", CreateBillBuilder(gwg_api_label))
 	gin_router.POST("/restaurants/:id/tables", CreateTableBuilder(gwg_api_label))
 	gin_router.GET("/restaurants/:id/tables", ListRestaurantTableBuilder(gwg_api_label))
 }
