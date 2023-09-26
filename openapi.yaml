@@ -590,7 +590,7 @@ components:
     Bill:
       type: object
       required:
-        - items
+        - orders
       properties:
         orders:
           type: array
