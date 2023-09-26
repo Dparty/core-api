@@ -127,11 +127,7 @@ paths:
         - Restaurant
       operationId: UpdateRestaurant
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       description: 'Update restaurant'
       requestBody:
         content:
@@ -151,11 +147,7 @@ paths:
       operationId: GetRestaurant
       description: 'Create restaurant'
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '200':
           description: 'Success created'
@@ -167,11 +159,7 @@ paths:
       tags:
         - Restaurant
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       operationId: DeleteRestaurant
       responses:
         '204':
@@ -183,11 +171,7 @@ paths:
       description: 'Create restaurant'
       operationId: CreateItem
       parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: string
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -205,11 +189,7 @@ paths:
         - Restaurant
       operationId: ListRestaurantItems
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '200':
           description: 'Items of restaurant'
@@ -223,11 +203,7 @@ paths:
         - Restaurant
       operationId: CreatePrinter
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -245,11 +221,7 @@ paths:
         - Restaurant
       operationId: ListPrinters
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '200':
           description: 'Success'
@@ -263,11 +235,7 @@ paths:
         - Restaurant
       operationId: UpdatePrinter
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -285,14 +253,26 @@ paths:
         - Restaurant
       operationId: DeletePrinter
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '204':
           description: 'Deleted'
+  /restaurants/{id}/bills:
+    get:
+      tags:
+        - Restaurant
+      operationId: ListBills
+      parameters:
+        - $ref: '#/components/parameters/ID'
+        - $ref: '#/components/parameters/StartAt'
+        - $ref: '#/components/parameters/EndAt'
+      responses:
+        '200':
+          description: 'Created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillList'
   /restaurants/{id}/tables:
     post:
       tags:
@@ -300,11 +280,7 @@ paths:
       operationId: CreateTable
       description: 'Create restaurant'
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -325,11 +301,7 @@ paths:
       operationId: ListRestaurantTable
       description: 'List restaurants table'
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '200':
           description: 'Success created'
@@ -343,11 +315,7 @@ paths:
         - Restaurant
       operationId: UpdateTable
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       description: 'Update table'
       requestBody:
         content:
@@ -366,11 +334,7 @@ paths:
         - Restaurant
       operationId: DeleteTable
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '204':
           description: 'Deleted'
@@ -380,11 +344,7 @@ paths:
         - Restaurant
       operationId: CreateBill
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -403,11 +363,7 @@ paths:
         - Restaurant
       operationId: GetItem
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '200':
           description: 'Updated'
@@ -421,11 +377,7 @@ paths:
       operationId: UpdateItem
       description: 'Create restaurant'
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       requestBody:
         content:
           application/json:
@@ -443,11 +395,7 @@ paths:
         - Restaurant
       operationId: DeleteItem
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '204':
           description: 'Deleted'
@@ -458,11 +406,7 @@ paths:
       operationId: UploadItemImage
       description: 'Create update url'
       parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
+        - $ref: '#/components/parameters/ID'
       responses:
         '201':
           description: 'Updated'
@@ -926,3 +870,21 @@ components:
         type: integer
         minimum: 1
         default: 10
+    ID:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+    StartAt:
+      in: query
+      name: startAt
+      schema:
+        type: integer
+        format: int64
+    EndAt:
+      in: query
+      name: endAt
+      schema:
+        type: integer
+        format: int64
