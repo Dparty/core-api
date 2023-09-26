@@ -374,11 +374,17 @@ paths:
       responses:
         '204':
           description: 'Deleted'
-  /bills:
+  /tables/{id}/orders:
     post:
       tags:
         - Restaurant
       operationId: CreateBill
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
       requestBody:
         content:
           application/json:
@@ -612,8 +618,6 @@ components:
       required:
         - orders
       properties:
-        tableId:
-          type: string
         orders:
           type: array
           items:
