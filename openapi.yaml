@@ -379,12 +379,6 @@ paths:
       tags:
         - Restaurant
       operationId: CreateBill
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: string
-          required: true
       requestBody:
         content:
           application/json:
