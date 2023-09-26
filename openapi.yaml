@@ -4,10 +4,10 @@ info:
   description: |-
     Dparty
   contact:
-    email: dan.chen@boardware.com
+    email: chenyunda218@gmail.com
   version: 0.0.10
 servers:
-  - url: http://localhost/api/v1
+  - url: https://localhost/api/v1
 tags:
   - name: Account
   - name: Restaurant
@@ -91,24 +91,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccountList'
-  /accounts/session/verification:
-    get:
-      tags:
-        - Account
-      description: 'Verify jwt'
-      operationId: VerifySession
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SessionVerificationRequest'
-      responses:
-        '200':
-          description: 'Verification'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Session'
   /restaurants:
     post:
       operationId: CreateRestaurant
@@ -392,7 +374,7 @@ paths:
       responses:
         '204':
           description: 'Deleted'
-  /tables/{id}/orders:
+  /bills:
     post:
       tags:
         - Restaurant
@@ -545,7 +527,7 @@ components:
             type: string
     PrinterType:
       type: string
-      enum: [BILL,KITCHEN]
+      enum: [BILL, KITCHEN]
     PutPrinterRequest:
       type: object
       required:
@@ -636,6 +618,8 @@ components:
       required:
         - orders
       properties:
+        tableId:
+          type: string
         orders:
           type: array
           items:
@@ -824,7 +808,7 @@ components:
           $ref: '#/components/schemas/Role'
     Role:
       type: string
-      enum: [ROOT, ADMIN, USER]
+      enum: [ROOT, ADMIN, USER, SUB_ACCOUNT]
     UpdatePasswordRequest:
       type: object
       required:
