@@ -425,6 +425,7 @@ components:
         - description
         - items
         - tags
+        - itmes
       properties:
         id:
           type: string
