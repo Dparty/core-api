@@ -435,7 +435,7 @@ components:
         items:
           type: array
           items: 
-            $ref: '#/components/schemas/ItemList'
+            $ref: '#/components/schemas/Item'
         tags:
           type: array
           items:
