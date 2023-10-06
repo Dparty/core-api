@@ -310,6 +310,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/TableList'
   /tables/{id}:
+    get:
+      tags:
+        - Restaurant
+      operationId: GetTable
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Table'
     put:
       tags:
         - Restaurant
@@ -442,7 +455,6 @@ components:
             type: string
     RestaurantList:
       type: object
-      description: ''
       required:
         - data
         - pagination
