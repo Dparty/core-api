@@ -438,6 +438,7 @@ components:
         - description
         - items
         - tags
+        - tables
       properties:
         id:
           type: string
