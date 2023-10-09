@@ -449,6 +449,10 @@ components:
           type: array
           items: 
             $ref: '#/components/schemas/Item'
+        tables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Table'
         tags:
           type: array
           items:
@@ -599,11 +603,16 @@ components:
           type: string
         right:
           type: string
+    BillStatus:
+      type: string
+      enum: [SUBMITTED,PAIED]
     Bill:
       type: object
       required:
         - orders
       properties:
+        status:
+          $ref: '#/components/schemas/BillStatus'
         orders:
           type: array
           items:
