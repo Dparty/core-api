@@ -257,22 +257,6 @@ paths:
       responses:
         '204':
           description: 'Deleted'
-  /restaurants/{id}/bills:
-    get:
-      tags:
-        - Restaurant
-      operationId: ListBills
-      parameters:
-        - $ref: '#/components/parameters/ID'
-        - $ref: '#/components/parameters/StartAt'
-        - $ref: '#/components/parameters/EndAt'
-      responses:
-        '200':
-          description: 'Created'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillList'
   /restaurants/{id}/tables:
     post:
       tags:
@@ -370,6 +354,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Bill'
+  /tables/{id}/bills:
+    get:
+      tags:
+        - Restaurant
+      operationId: ListTablesBills
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillList'
   /items/{id}:
     get:
       tags:
@@ -427,6 +425,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Uploading'
+  /bills:
+    get:
+      tags: [Restaurant]
+      operationId: ListBills
+      parameters:
+        - in: query
+          name: restaurantId
+          schema:
+            type: string
+        - in: query
+          name: status
+          schema:
+            type: string
+        - in: query
+          name: startAt
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: endAt
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: tableId
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+  /bills/{id}:
+    get:
+      tags: [Restaurant]
+      operationId: GetBill
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+  /bills/{id}/finish:
+    put:
+      tags: [Restaurant]
+      operationId: FinishBill
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
 components:
   schemas:
     Restaurant:
@@ -610,8 +668,12 @@ components:
     Bill:
       type: object
       required:
+        - id
+        - status
         - orders
       properties:
+        id:
+          type: string
         status:
           $ref: '#/components/schemas/BillStatus'
         orders:
