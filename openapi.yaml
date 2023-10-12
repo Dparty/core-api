@@ -487,6 +487,19 @@ paths:
                 $ref: '#/components/schemas/Bill'
 components:
   schemas:
+    RestaurantsConfiguration:
+      type: object
+      properties:
+        width:
+          type: integer
+          format: int64
+        height:
+          type: integer
+          format: int64
+        tags:
+          type: array
+          items:
+            type: string
     Restaurant:
       type: object
       description: 'Restaurant'
@@ -600,7 +613,15 @@ components:
       required:
         - id
         - label
+        - y
+        - x
       properties:
+        x:
+          type: integer
+          format: int64
+        y:
+          type: integer
+          format: int64
         id:
           type: string
         label:
@@ -616,9 +637,17 @@ components:
       type: object
       required:
         - label
+        - x
+        - y
       properties:
         label:
           type: string
+        x:
+          type: integer
+          format: int64
+        y:
+          type: integer
+          format: int64
     Specification:
       type: object
       required:
