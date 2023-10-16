@@ -354,20 +354,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Bill'
-  /tables/{id}/bills:
-    get:
-      tags:
-        - Restaurant
-      operationId: ListTablesBills
-      parameters:
-        - $ref: '#/components/parameters/ID'
-      responses:
-        '200':
-          description: 'Success'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillList'
   /items/{id}:
     get:
       tags:
